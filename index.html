@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FC Directors Summit | Summer 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+    <style>
+        /* Proxima Nova — FC brand typeface */
+        @font-face {
+            font-family: 'Proxima Nova';
+            src: url('fonts/ProximaNova-Light.otf') format('opentype');
+            font-weight: 300;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Proxima Nova';
+            src: url('fonts/ProximaNova-Regular.otf') format('opentype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Proxima Nova';
+            src: url('fonts/ProximaNova-Semibold.otf') format('opentype');
+            font-weight: 600;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Proxima Nova';
+            src: url('fonts/ProximaNova-Bold.otf') format('opentype');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --navy: #1b365d;
+            --teal: #36bbae;
+            --cream: #f4f1ec;
+            --warm-white: #fdfaf6;
+            --text-mid: #4a5a72;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Proxima Nova', Arial, sans-serif;
+            background: var(--warm-white);
+            color: var(--navy);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ─── SCROLL PROGRESS ─── */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: var(--teal);
+            z-index: 200;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        /* ─── STICKY NAV ─── */
+        .site-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 0 72px;
+            height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: transparent;
+            transition: background 0.35s ease, backdrop-filter 0.35s ease;
+        }
+
+        .site-nav.scrolled {
+            background: rgba(27, 54, 93, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .nav-logo img {
+            height: 36px;
+            display: block;
+            filter: brightness(0) invert(1);
+        }
+
+        .nav-cta {
+            font-family: 'Proxima Nova', Arial, sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--teal);
+            text-decoration: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .nav-cta:hover { opacity: 0.75; }
+
+        /* BH */
+        .bh {
+            position: absolute;
+            top: 22px;
+            right: 32px;
+            font-size: 11px;
+            letter-spacing: 0.06em;
+            color: rgba(255,255,255,0.3);
+            font-family: 'Proxima Nova', Arial, sans-serif;
+        }
+
+        /* ─── HERO ─── */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            background-color: var(--navy);
+            background-image: url('hero-bg.jpg');
+            background-size: cover;
+            background-position: center 30%;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        /* Navy overlay on top of background photo */
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(27,54,93,0.88) 0%,
+                rgba(27,54,93,0.75) 50%,
+                rgba(27,54,93,0.82) 100%
+            );
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(ellipse 70% 80% at 85% 60%, rgba(54,187,174,0.12) 0%, transparent 55%),
+                radial-gradient(ellipse 80% 60% at 110% 50%, rgba(54,187,174,0.06) 0%, transparent 60%),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            animation: heroShimmer 8s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent 0%, var(--teal) 30%, var(--teal) 70%, transparent 100%);
+            opacity: 1;
+        }
+
+        /* Hero canvas */
+        #hero-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Hero watermark */
+        .hero-watermark {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(120px, 20vw, 240px);
+            font-weight: 300;
+            color: rgba(255,255,255,0.03);
+            line-height: 1;
+            pointer-events: none;
+            user-select: none;
+            letter-spacing: -0.02em;
+            z-index: 0;
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 130px 72px 110px;
+            width: 100%;
+        }
+
+        .hero-org {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.45);
+            margin-bottom: 36px;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.1s forwards;
+        }
+
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(72px, 11vw, 128px);
+            font-weight: 300;
+            line-height: 0.95;
+            color: #fff;
+            letter-spacing: -0.02em;
+            margin-bottom: 28px;
+        }
+
+        /* Word-by-word stagger */
+        .hero-word {
+            display: inline-block;
+            opacity: 0;
+            animation: fadeUp 0.9s ease forwards;
+        }
+
+        .hero-em {
+            font-style: italic;
+            color: var(--teal);
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 1.65;
+            color: rgba(255,255,255,0.65);
+            max-width: 440px;
+            margin-bottom: 60px;
+            opacity: 0;
+            animation: fadeUp 0.9s ease 0.4s forwards;
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0;
+            margin-bottom: 72px;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            opacity: 0;
+            animation: fadeUp 0.9s ease 0.55s forwards;
+        }
+
+        .hero-meta-item {
+            padding: 20px 40px 20px 28px;
+            border-right: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .hero-meta-item:first-child {
+            padding-left: 0;
+        }
+
+        .hero-meta-item:last-child {
+            border-right: none;
+        }
+
+        .hero-meta-label {
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .hero-meta-value {
+            font-size: 17px;
+            color: rgba(255,255,255,0.8);
+            font-weight: 500;
+        }
+
+        /* ─── COUNTDOWN ─── */
+        .hero-countdown {
+            display: flex;
+            gap: 32px;
+            margin-top: 24px;
+            margin-bottom: 52px;
+            opacity: 0;
+            animation: fadeUp 0.9s ease 0.65s forwards;
+        }
+
+        .countdown-item {
+            text-align: center;
+        }
+
+        .countdown-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 44px;
+            font-weight: 300;
+            color: #fff;
+            line-height: 1;
+        }
+
+        .countdown-label {
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+            margin-top: 4px;
+        }
+
+        .btn-primary {
+            position: relative;
+            display: inline-block;
+            background: var(--teal);
+            color: #fff;
+            font-family: 'Proxima Nova', Arial, sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            padding: 20px 52px;
+            text-decoration: none;
+            overflow: hidden;
+            transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+            box-shadow: 0 8px 32px rgba(54,187,174,0.35);
+            opacity: 0;
+            animation: btnPulse 3s ease-in-out infinite, fadeUp 0.9s ease 0.7s both;
+        }
+
+        .btn-primary:hover {
+            background: #2da89c;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(54,187,174,0.4);
+            animation: none;
+        }
+
+        .btn-primary:focus-visible {
+            outline: 2px solid rgba(255,255,255,0.7);
+            outline-offset: 4px;
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+            background: #289a8e;
+        }
+
+        /* Button sparkle */
+        .btn-sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--teal);
+            pointer-events: none;
+            animation: sparkleOut 0.5s ease forwards;
+        }
+
+        @keyframes sparkleOut {
+            0% { opacity: 1; transform: translate(0,0) scale(1); }
+            100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0); }
+        }
+
+        /* ─── HERO SCROLL HINT ─── */
+        .hero-scroll-hint {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: fadeUp 1s ease 1.2s forwards, scrollBounce 2s ease-in-out 2.2s infinite;
+        }
+
+        /* ─── CURSOR FOLLOWER ─── */
+        .cursor-follower {
+            position: fixed;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: rgba(54,187,174,0.4);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s ease;
+        }
+
+        /* ─── INTRO ─── */
+        .section-intro {
+            padding: 120px 72px;
+            background: var(--warm-white);
+        }
+
+        .section-intro-inner {
+            max-width: 660px;
+            margin: 0 auto;
+        }
+
+        .intro-lead {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 34px;
+            font-style: italic;
+            font-weight: 400;
+            color: var(--teal);
+            line-height: 1.4;
+            margin-bottom: 36px;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Animated underline on intro-lead */
+        .intro-lead::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0%;
+            height: 1px;
+            background: rgba(54,187,174,0.6);
+            transition: width 1s ease 0.3s;
+        }
+
+        .intro-lead.visible::after {
+            width: 100%;
+        }
+
+        .section-intro p {
+            font-size: 17px;
+            line-height: 1.9;
+            color: var(--navy);
+            margin-bottom: 22px;
+            font-weight: 400;
+        }
+
+        .section-intro p:last-child { margin-bottom: 0; }
+
+        .section-intro p.emphasis {
+            font-weight: 600;
+        }
+
+        /* ─── WEST BLOOMFIELD ─── */
+        .section-wb {
+            background: var(--navy);
+            padding: 120px 72px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wb-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(54,187,174,0.15);
+            pointer-events: none;
+        }
+        .wb-ring-1 { width: 500px; height: 500px; top: -120px; right: -100px; animation: ringFloat 12s ease-in-out infinite; }
+        .wb-ring-2 { width: 320px; height: 320px; bottom: -80px; right: 80px; animation: ringFloat 9s ease-in-out infinite reverse; }
+
+        .section-wb-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 88px;
+            align-items: center;
+        }
+
+        .wb-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+            margin-bottom: 24px;
+        }
+
+        .wb-heading {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 64px;
+            font-weight: 300;
+            color: #fff;
+            line-height: 1.1;
+            margin-bottom: 36px;
+        }
+
+        .wb-body {
+            font-size: 16px;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.72);
+            margin-bottom: 18px;
+        }
+
+        .wb-body:last-child { margin-bottom: 0; }
+
+        .wb-pull {
+            border-left: 3px solid var(--teal);
+            padding-left: 28px;
+            transition: border-color 0.3s ease;
+        }
+
+        .wb-pull:hover {
+            border-color: rgba(54,187,174,0.8);
+        }
+
+        .wb-pull p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 26px;
+            font-style: italic;
+            font-weight: 400;
+            color: rgba(255,255,255,0.75);
+            line-height: 1.55;
+            transition: color 0.3s ease;
+        }
+
+        .wb-pull:hover p {
+            color: rgba(255,255,255,0.9);
+        }
+
+        /* ─── SESSIONS ─── */
+        .section-sessions {
+            background: linear-gradient(180deg, var(--cream) 0%, #edf7f6 100%);
+            padding: 120px 72px;
+        }
+
+        .section-sessions-inner {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(27,54,93,0.4);
+            margin-bottom: 16px;
+            border-left: 2px solid var(--teal);
+            padding-left: 10px;
+        }
+
+        .section-heading {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 64px;
+            font-weight: 300;
+            color: var(--navy);
+            line-height: 1.1;
+            margin-bottom: 64px;
+        }
+
+        .sessions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            background: rgba(27,54,93,0.1);
+        }
+
+        .session-card {
+            background: var(--warm-white);
+            padding: 44px 36px;
+            border-top: 2px solid rgba(27,54,93,0.1);
+            transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+        }
+
+        .session-card:hover {
+            background: #fafffe;
+            border-top-color: var(--teal);
+            box-shadow: 0 8px 32px rgba(27,54,93,0.1);
+            transform: translateY(-2px);
+        }
+
+        .session-num {
+            font-family: 'Proxima Nova', Arial, sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            color: rgba(54,187,174,0.7);
+            margin-bottom: 20px;
+        }
+
+        .session-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 30px;
+            font-weight: 500;
+            color: var(--navy);
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+
+        .session-speaker {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-mid);
+            margin-bottom: 22px;
+        }
+
+        .session-intro {
+            font-size: 14px;
+            line-height: 1.75;
+            color: var(--text-mid);
+            margin-bottom: 24px;
+        }
+
+        .session-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .session-list li {
+            font-size: 13px;
+            line-height: 1.55;
+            color: var(--text-mid);
+            padding-left: 15px;
+            position: relative;
+        }
+
+        .session-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 9px;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: rgba(27,54,93,0.25);
+            transform: scale(1);
+            transition: transform 0.3s ease;
+        }
+
+        .session-card:hover .session-list li::before {
+            transform: scale(1.5);
+        }
+
+        /* ─── DETAILS ─── */
+        .section-details {
+            background: var(--warm-white);
+            padding: 120px 72px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-details::after {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            border: 1px solid rgba(54,187,174,0.12);
+            pointer-events: none;
+        }
+
+        .section-details-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        .details-heading {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 64px;
+            font-weight: 300;
+            color: var(--navy);
+            line-height: 1.1;
+            margin-bottom: 48px;
+        }
+
+        .details-rows {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .detail-row {
+            display: grid;
+            grid-template-columns: 110px 1fr;
+            gap: 20px;
+            padding: 18px 8px;
+            margin-left: -8px;
+            padding-right: 8px;
+            border-bottom: 1px solid rgba(27,54,93,0.08);
+            transition: background 0.2s ease;
+        }
+
+        .detail-row:first-child { border-top: 1px solid rgba(27,54,93,0.08); }
+
+        .detail-row:hover { background: rgba(54,187,174,0.05); }
+
+        .detail-label {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--teal);
+            padding-top: 2px;
+        }
+
+        .detail-value {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--navy);
+        }
+
+        .detail-value strong { font-weight: 700; }
+
+        .who-box {
+            background: var(--navy);
+            padding: 48px 44px;
+        }
+
+        .who-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+            margin-bottom: 8px;
+        }
+
+        .who-heading {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 34px;
+            font-weight: 300;
+            color: #fff;
+            line-height: 1.2;
+            margin-bottom: 32px;
+        }
+
+        .who-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .who-list li {
+            font-size: 15px;
+            line-height: 1.55;
+            color: rgba(255,255,255,0.65);
+            padding-left: 20px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .who-box.list-visible .who-list li {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .who-list li:nth-child(1) { transition-delay: 0s; }
+        .who-list li:nth-child(2) { transition-delay: 0.15s; }
+        .who-list li:nth-child(3) { transition-delay: 0.30s; }
+
+        .who-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 6px;
+            height: 1px;
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* ─── REGISTER ─── */
+        .section-register {
+            background: linear-gradient(135deg, #f4f1ec 0%, #eaf6f5 100%);
+            padding: 120px 72px;
+        }
+
+        .section-register-inner {
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .register-heading {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 64px;
+            font-weight: 300;
+            color: var(--navy);
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .register-sub {
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--text-mid);
+            margin-bottom: 48px;
+            max-width: 500px;
+        }
+
+        .form-container {
+            background: var(--warm-white);
+            border: 1px solid rgba(27,54,93,0.09);
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-placeholder {
+            text-align: center;
+            padding: 64px 48px;
+        }
+
+        .form-placeholder p {
+            font-size: 14px;
+            color: var(--text-mid);
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        /* ─── FOOTER ─── */
+        footer {
+            background: var(--navy);
+            padding: 44px 72px;
+            transition: background 0.5s ease;
+        }
+
+        footer:hover {
+            background: linear-gradient(135deg, #1b365d 0%, #1e3f6a 50%, #1b365d 100%);
+        }
+
+        .footer-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer-details {
+            font-size: 12px;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 0.05em;
+        }
+
+        /* ─── SCROLL ANIMATION ─── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.75s ease, transform 0.75s ease;
+            will-change: transform, opacity;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-32px);
+            transition: opacity 0.75s ease, transform 0.75s ease;
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(32px);
+            transition: opacity 0.75s ease, transform 0.75s ease;
+        }
+
+        .reveal-left.visible, .reveal-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+
+        /* ─── KEYFRAME ANIMATIONS ─── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(28px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes heroShimmer {
+            0%, 100% { opacity: 0.06; }
+            50% { opacity: 0.1; }
+        }
+
+        @keyframes btnPulse {
+            0%, 100% { box-shadow: 0 8px 32px rgba(54,187,174,0.35); }
+            50% { box-shadow: 0 8px 48px rgba(54,187,174,0.55); }
+        }
+
+        @keyframes scrollBounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(6px); }
+        }
+
+        @keyframes ringFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(1.02); }
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 800px) {
+            .site-nav { padding: 0 24px; }
+            .hero-inner { padding: 88px 36px 72px; }
+            .section-intro, .section-wb, .section-sessions,
+            .section-details, .section-register { padding: 72px 36px; }
+            footer { padding: 32px 36px; }
+            .section-wb-inner, .section-details-inner { grid-template-columns: 1fr; gap: 52px; }
+            .sessions-grid { grid-template-columns: 1fr; }
+            .hero-meta { gap: 0; flex-direction: column; }
+            .hero-meta-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 16px 0; }
+            .footer-inner { flex-direction: column; gap: 8px; text-align: center; }
+            .hero-countdown { gap: 20px; }
+            .countdown-num { font-size: 36px; }
+        }
+
+        /* Cursor follower only on pointer:fine devices */
+        @media (pointer: coarse) {
+            .cursor-follower { display: none; }
+        }
+
+        /* ─── REDUCED MOTION ─── */
+        @media (prefers-reduced-motion: reduce) {
+            .reveal, .reveal-left, .reveal-right {
+                transition: none;
+                opacity: 1;
+                transform: none;
+            }
+            .hero-org, .hero-subtitle, .hero-meta, .btn-primary {
+                animation: none;
+                opacity: 1;
+                transform: none;
+            }
+            .hero-word {
+                animation: none;
+                opacity: 1;
+                transform: none;
+            }
+            .hero::before { animation: none; }
+            .wb-ring-1, .wb-ring-2 { animation: none; }
+            .btn-primary { animation: none; }
+            .hero-scroll-hint { animation: none; opacity: 1; }
+            .session-list li::before { transition: none; }
+            .detail-row { transition: none; }
+            .hero-countdown { animation: none; opacity: 1; }
+            .intro-lead::after { transition: none; width: 100%; }
+            .who-list li { opacity: 1; transform: none; transition: none; }
+            .cursor-follower { display: none; }
+            .scroll-progress { transition: none; }
+            .wb-pull, .wb-pull p { transition: none; }
+            footer { transition: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Scroll progress bar -->
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+<!-- Cursor follower -->
+<div class="cursor-follower" id="cursorFollower" aria-hidden="true"></div>
+
+<!-- ──────────────── STICKY NAV ──────────────── -->
+<nav class="site-nav" id="siteNav" aria-label="Site navigation">
+    <a href="#" class="nav-logo" aria-label="Friendship Circle International">
+        <img src="logo-color.png" alt="Friendship Circle International" height="36">
+    </a>
+    <a href="#register" class="nav-cta">Reserve Your Seat</a>
+</nav>
+
+<!-- ──────────────── HERO ──────────────── -->
+<section class="hero">
+    <div class="hero-overlay"></div>
+    <canvas id="hero-canvas" aria-hidden="true"></canvas>
+    <span class="bh" aria-hidden="true">ב״ה</span>
+    <span class="hero-watermark" aria-hidden="true">2026</span>
+    <div class="hero-inner">
+        <p class="hero-org">Friendship Circle International</p>
+        <h1 class="hero-title"><span class="hero-word" style="animation-delay: 0.25s;">FC</span> <span class="hero-word" style="animation-delay: 0.35s;">Directors</span><br><span class="hero-word hero-em" style="animation-delay: 0.45s;">Summit</span></h1>
+        <p class="hero-subtitle">A working summit for established Friendship Circle chapter directors.</p>
+        <div class="hero-meta">
+            <div class="hero-meta-item">
+                <div class="hero-meta-label">Dates</div>
+                <div class="hero-meta-value">July 13–14, 2026</div>
+            </div>
+            <div class="hero-meta-item">
+                <div class="hero-meta-label">Location</div>
+                <div class="hero-meta-value">West Bloomfield, Michigan</div>
+            </div>
+            <div class="hero-meta-item">
+                <div class="hero-meta-label">Investment</div>
+                <div class="hero-meta-value">$400 per person</div>
+            </div>
+            <div class="hero-meta-item">
+                <div class="hero-meta-label">Capacity</div>
+                <div class="hero-meta-value">15–20 directors</div>
+            </div>
+        </div>
+        <div class="hero-countdown" id="heroCountdown" aria-label="Countdown to summit">
+            <div class="countdown-item">
+                <div class="countdown-num" id="cdDays">--</div>
+                <div class="countdown-label">Days</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-num" id="cdHours">--</div>
+                <div class="countdown-label">Hours</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-num" id="cdMins">--</div>
+                <div class="countdown-label">Minutes</div>
+            </div>
+        </div>
+        <a href="#register" class="btn-primary">Reserve Your Seat</a>
+    </div>
+    <div class="hero-scroll-hint" aria-hidden="true">
+        <svg width="20" height="12" viewBox="0 0 20 12" fill="none">
+            <path d="M1 1L10 10L19 1" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+    </div>
+</section>
+
+<!-- ──────────────── INTRO ──────────────── -->
+<section class="section-intro">
+    <div class="section-intro-inner">
+        <p class="intro-lead reveal">You've been building something real.</p>
+        <p class="reveal reveal-delay-1">A chapter that's grown, a mosad that families depend on, a team you've had to figure out how to lead. And somewhere in the middle of all that growth, it gets harder to stop and ask whether the foundation is keeping up.</p>
+        <p class="reveal reveal-delay-1 emphasis">That's what this summit is for.</p>
+        <p class="reveal reveal-delay-2">Two days in West Bloomfield with a small group of fellow directors. The conversations most of us don't get to have during the year: about structure, about money, about mission, about what it actually takes to lead a growing Friendship Circle with clarity and confidence.</p>
+        <p class="reveal reveal-delay-2">Because this summit is built around real work and not just sessions you sit through, directors will be asked to complete some preparatory work before arriving. It makes the two days worth it.</p>
+    </div>
+</section>
+
+<!-- ──────────────── WEST BLOOMFIELD ──────────────── -->
+<section class="section-wb">
+    <div class="wb-ring wb-ring-1" aria-hidden="true"></div>
+    <div class="wb-ring wb-ring-2" aria-hidden="true"></div>
+    <div class="section-wb-inner">
+        <div class="wb-left-column reveal-left">
+            <p class="wb-label">Why West Bloomfield</p>
+            <h2 class="wb-heading">Where it<br>all began.</h2>
+            <p class="wb-body">This is where Friendship Circle started. A young couple with no building and no budget, just the belief that friendship changes everything. Over thirty years, that belief became LifeTown. Soul Café. A community transformed.</p>
+            <p class="wb-body">They didn't start there. They grew into it.</p>
+            <p class="wb-body">We're gathering here intentionally. The directors who built West Bloomfield will be in the room with us. Part of what we're doing together is learning how they did it, not as a template, but as a real conversation about what it takes.</p>
+        </div>
+        <div class="wb-pull reveal-right">
+            <p>Not comparing your chapter to Michigan, but doing the same kind of intentional work that got Michigan where it is.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ──────────────── SESSIONS ──────────────── -->
+<section class="section-sessions">
+    <div class="section-sessions-inner">
+        <div class="reveal">
+            <p class="section-label">What We're Working On</p>
+            <h2 class="section-heading">Three sessions.<br>Real work.</h2>
+        </div>
+        <div class="sessions-grid">
+
+            <div class="session-card" data-session="01">
+                <p class="session-num">01 / 03</p>
+                <h3 class="session-title">Anchoring in Mission</h3>
+                <p class="session-speaker">Led by Rabbi Shais Taub</p>
+                <p class="session-intro">When a chapter grows, the work gets more complex. It's easy for the original reason you started to quietly fade into the background. This farbreng, rooted in the Rebbe's teachings on shlichus, is about making sure it doesn't.</p>
+                <ul class="session-list" role="list">
+                    <li role="listitem">What it means to lead a mosad where every person is seen as a neshama</li>
+                    <li role="listitem">How to make decisions that stay true to who you are, not just what you run</li>
+                    <li role="listitem">How growth can strengthen your identity rather than dilute it</li>
+                </ul>
+            </div>
+
+            <div class="session-card" data-session="02">
+                <p class="session-num">02 / 03</p>
+                <h3 class="session-title">Building Structure That Holds</h3>
+                <p class="session-speaker">Led by Mendel Shemtov</p>
+                <p class="session-intro">Most of us built our chapters by figuring things out as we went. That works until it doesn't. This session is about building the kind of structure that lets you grow without burning out.</p>
+                <ul class="session-list" role="list">
+                    <li role="listitem">Clear roles and real accountability</li>
+                    <li role="listitem">Governance that helps you lead rather than slows you down</li>
+                    <li role="listitem">Systems that scale with your chapter, not against it</li>
+                </ul>
+            </div>
+
+            <div class="session-card" data-session="03">
+                <p class="session-num">03 / 03</p>
+                <h3 class="session-title">Fundraising With a Longer View</h3>
+                <p class="session-speaker">Led by Tzvi Schectman</p>
+                <p class="session-intro">Most of us are good at raising money for the next thing. This session is about building something more sustainable.</p>
+                <ul class="session-list" role="list">
+                    <li role="listitem">Moving beyond event-to-event pressure</li>
+                    <li role="listitem">Building revenue that's predictable and diversified</li>
+                    <li role="listitem">Fundraising from vision rather than from urgency</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ──────────────── DETAILS ──────────────── -->
+<section class="section-details">
+    <div class="section-details-inner">
+        <div class="reveal">
+            <h2 class="details-heading">The details.</h2>
+            <div class="details-rows">
+                <div class="detail-row">
+                    <span class="detail-label">Starts</span>
+                    <span class="detail-value">July 13, 2026 at <strong>11:00 AM</strong></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Ends</span>
+                    <span class="detail-value">July 14, 2026 at <strong>6:00 PM</strong></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Location</span>
+                    <span class="detail-value">West Bloomfield, Michigan</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Investment</span>
+                    <span class="detail-value"><strong>$400 per person</strong><br>Accommodations not included</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Capacity</span>
+                    <span class="detail-value">15–20 directors</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Prep</span>
+                    <span class="detail-value">Directors receive preparatory materials in advance. Completion is required.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="who-box reveal">
+            <p class="who-label">Who This Is For</p>
+            <h3 class="who-heading">Established directors.<br>Active growth.</h3>
+            <ul class="who-list" role="list">
+                <li role="listitem">Friendship Circle chapter directors with established programs in active growth</li>
+                <li role="listitem">Directors carrying $500K+ budgets</li>
+                <li role="listitem">Shluchim and shluchos who want to grow responsibly, thoughtfully, and with clarity</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- ──────────────── REGISTER ──────────────── -->
+<section class="section-register" id="register">
+    <div class="section-register-inner">
+        <div class="reveal">
+            <p class="section-label">Registration</p>
+            <h2 class="register-heading">Reserve your seat.</h2>
+            <p class="register-sub">Spots are limited to 15–20 directors. Complete the form below to apply. You'll hear back within a few days.</p>
+        </div>
+        <div class="form-container reveal">
+            <!-- ↓↓↓ REPLACE THIS WITH YOUR JOTFORM EMBED CODE ↓↓↓ -->
+            <div class="form-placeholder">
+                <p>Registration form will be embedded here.<br>Replace this block with your JotForm embed code.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ──────────────── FOOTER ──────────────── -->
+<footer>
+    <div class="footer-inner">
+        <img src="logo-color.png" alt="Friendship Circle International" height="28" style="filter: brightness(0) invert(1); opacity: 0.6;">
+        <span class="footer-details">FC Directors Summit · West Bloomfield, MI · July 13–14, 2026</span>
+    </div>
+</footer>
+
+<script>
+    /* ─── SCROLL PROGRESS ─── */
+    const progressBar = document.getElementById('scrollProgress');
+    window.addEventListener('scroll', function() {
+        const scrolled = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+        progressBar.style.width = scrolled + '%';
+    }, { passive: true });
+
+    /* ─── NAV SCROLL EFFECT ─── */
+    const siteNav = document.getElementById('siteNav');
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 40) {
+            siteNav.classList.add('scrolled');
+        } else {
+            siteNav.classList.remove('scrolled');
+        }
+    }, { passive: true });
+
+    /* ─── HERO CANVAS PARTICLE FIELD ─── */
+    (function() {
+        const canvas = document.getElementById('hero-canvas');
+        const heroSection = canvas.parentElement;
+        const ctx = canvas.getContext('2d');
+        const NUM_DOTS = 60;
+        let dots = [];
+        let animFrame;
+
+        function resize() {
+            canvas.width = heroSection.offsetWidth;
+            canvas.height = heroSection.offsetHeight;
+        }
+
+        function initDots() {
+            dots = [];
+            for (let i = 0; i < NUM_DOTS; i++) {
+                dots.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    r: 2,
+                    speed: 0.3 + Math.random() * 0.4,
+                    opacity: 0.15 + Math.random() * 0.2
+                });
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            dots.forEach(function(d) {
+                ctx.beginPath();
+                ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(54,187,174,' + d.opacity + ')';
+                ctx.fill();
+                d.y -= d.speed;
+                if (d.y < -4) {
+                    d.y = canvas.height + 4;
+                    d.x = Math.random() * canvas.width;
+                }
+            });
+            animFrame = requestAnimationFrame(draw);
+        }
+
+        resize();
+        initDots();
+        draw();
+
+        window.addEventListener('resize', function() {
+            resize();
+            initDots();
+        });
+    })();
+
+    /* ─── COUNTDOWN TIMER ─── */
+    (function() {
+        const target = new Date('2026-07-13T11:00:00');
+        const daysEl = document.getElementById('cdDays');
+        const hoursEl = document.getElementById('cdHours');
+        const minsEl = document.getElementById('cdMins');
+
+        function pad(n) { return String(n).padStart(2, '0'); }
+
+        function updateCountdown() {
+            const now = new Date();
+            const diff = target - now;
+            if (diff <= 0) {
+                daysEl.textContent = '00';
+                hoursEl.textContent = '00';
+                minsEl.textContent = '00';
+                return;
+            }
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            daysEl.textContent = pad(days);
+            hoursEl.textContent = pad(hours);
+            minsEl.textContent = pad(mins);
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 60000);
+    })();
+
+    /* ─── REVEAL OBSERVER (up, left, right) ─── */
+    const revealObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(function(el) {
+        revealObserver.observe(el);
+    });
+
+    /* ─── INTRO LEAD UNDERLINE ANIMATION ─── */
+    const introLeadObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                introLeadObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    const introLead = document.querySelector('.intro-lead');
+    if (introLead) introLeadObserver.observe(introLead);
+
+    /* ─── SESSION CARD STAGGER ─── */
+    const sessionCards = document.querySelectorAll('.session-card');
+    const sessionNums = ['01', '02', '03'];
+
+    const sessionObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                const card = entry.target;
+                const idx = Array.from(sessionCards).indexOf(card);
+                setTimeout(function() {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                    // Animate session number counting up
+                    const numEl = card.querySelector('.session-num');
+                    const finalVal = parseInt(sessionNums[idx]);
+                    let current = 0;
+                    const interval = setInterval(function() {
+                        current++;
+                        const padded = String(current).padStart(2, '0');
+                        numEl.textContent = padded + ' / 03';
+                        if (current >= finalVal) clearInterval(interval);
+                    }, 60);
+                }, idx * 100);
+                sessionObserver.unobserve(card);
+            }
+        });
+    }, { threshold: 0.15 });
+
+    sessionCards.forEach(function(card) {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(28px)';
+        card.style.transition = 'opacity 0.75s ease, transform 0.75s ease';
+        sessionObserver.observe(card);
+    });
+
+    /* ─── WHO-BOX LIST STAGGER ─── */
+    const whoBoxObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('list-visible');
+                whoBoxObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+
+    const whoBox = document.querySelector('.who-box');
+    if (whoBox) whoBoxObserver.observe(whoBox);
+
+    /* ─── CURSOR FOLLOWER (desktop only) ─── */
+    (function() {
+        const follower = document.getElementById('cursorFollower');
+        if (!follower) return;
+        if (window.matchMedia('(pointer: coarse)').matches) return;
+
+        let mouseX = 0, mouseY = 0;
+        let followerX = 0, followerY = 0;
+        let rafRunning = false;
+
+        document.addEventListener('mousemove', function(e) {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            if (!rafRunning) {
+                rafRunning = true;
+                requestAnimationFrame(animateCursor);
+            }
+        });
+
+        function animateCursor() {
+            followerX += (mouseX - followerX) * 0.12;
+            followerY += (mouseY - followerY) * 0.12;
+            follower.style.left = followerX + 'px';
+            follower.style.top = followerY + 'px';
+            if (Math.abs(mouseX - followerX) > 0.5 || Math.abs(mouseY - followerY) > 0.5) {
+                requestAnimationFrame(animateCursor);
+            } else {
+                rafRunning = false;
+            }
+        }
+    })();
+
+    /* ─── BUTTON SPARKLE EFFECT ─── */
+    (function() {
+        const buttons = document.querySelectorAll('.btn-primary');
+        buttons.forEach(function(btn) {
+            btn.addEventListener('mouseenter', function(e) {
+                const rect = btn.getBoundingClientRect();
+                const cx = rect.width / 2;
+                const cy = rect.height / 2;
+                for (let i = 0; i < 6; i++) {
+                    const spark = document.createElement('span');
+                    spark.classList.add('btn-sparkle');
+                    const angle = (i / 6) * Math.PI * 2;
+                    const dist = 20 + Math.random() * 20;
+                    const tx = Math.cos(angle) * dist + 'px';
+                    const ty = Math.sin(angle) * dist + 'px';
+                    spark.style.cssText = [
+                        'left:' + (cx - 2) + 'px',
+                        'top:' + (cy - 2) + 'px',
+                        '--tx:' + tx,
+                        '--ty:' + ty
+                    ].join(';');
+                    btn.appendChild(spark);
+                    setTimeout(function() {
+                        if (spark.parentNode) spark.parentNode.removeChild(spark);
+                    }, 500);
+                }
+            });
+        });
+    })();
+</script>
+
+</body>
+</html>
